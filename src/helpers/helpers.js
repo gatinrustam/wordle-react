@@ -35,3 +35,55 @@ export function getMatchedLettersArray(gameWord, currentWord) {
 export function generateKey(key, index) {
   return `key_${key}_${index}`;
 }
+
+// const colors = [
+//   { letter: "A", color: "green" },
+//   { letter: "B", color: "gray" },
+//   { letter: "C", color: "yellow" },
+//   { letter: "D", color: "gray" },
+//   { letter: "E", color: "green" },
+//   { letter: "A", color: "yellow" },
+//   { letter: "B", color: "green" },
+//   { letter: "C", color: "gray" },
+//   { letter: "D", color: "gray" },
+// ]
+
+export function getLettersObject(gameWord, arrayWords) {
+  const priorities = ["excluded", "contains", "matched"];
+
+  const colors = [];
+
+  for (const word of arrayWords) {
+    const statusArray = getMatchedLettersArray(gameWord, word); 
+
+    for (let i = 0; i < word.length; i++) {
+      colors.push({
+        letter: word[i], 
+        color: statusArray[i]
+      })
+    }
+  }
+  
+  Object.groupBy = function(items, callback) {
+    const grouped = {};
+
+    for (const item of items) {
+      const sortedBy = callback(item)
+
+      grouped[sortedBy] ??= []
+      grouped[sortedBy].push(item)
+    }
+
+    return grouped;
+  }
+  
+  const groups = Object.groupBy(colors, x => x.letter);
+
+  const entries = Object.entries(groups)
+    .map(([letter, array]) => [letter, array.map(x => x.color).sort((a, b) => priorities.indexOf(b) - priorities.indexOf(a))[0]]);
+    
+  const map = Object.fromEntries(entries)
+
+  return map;
+}
+

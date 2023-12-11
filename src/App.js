@@ -4,9 +4,10 @@ import './App.css';
 import { Header } from './components/Header.jsx';
 import { Keyboard } from './components/Keyboard.jsx';
 import { Playground } from './components/Playground.jsx';
+import { Success } from './components/Success.jsx';
 
 function App() {
-  const [gameWord, setGameWord] = useState('peace');
+  const [gameWord, setGameWord] = useState('genre');
   const [words, setWords] = useState([])
   const [writeWord, setWriteWord] = useState('')
 
@@ -43,6 +44,7 @@ function App() {
   return (
     <div className="App">
       <Header />
+      {words.includes(gameWord) && <Success />}
       <Playground 
         gameWord={gameWord}
         playground={words} 

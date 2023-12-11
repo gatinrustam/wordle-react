@@ -6,9 +6,9 @@ const squares = Array(5).fill();
 export function EmptyRow() {
   return (
     <div className="playground__row">
-      {squares.map((key, index) => {
+      {squares.map((_, index) => {
           return (
-            <div key={generateKey(key, index)} className="letter"></div>
+            <div key={index} className="letter"></div>
           )
         })}
     </div>

@@ -12,6 +12,7 @@ export function Keyboard({words, gameWord, onLetterPress, onEnterPress, onDelPre
   useEffect(() => {
     function onKeyPress(e) {
       if (/^[a-z]$/.test(e.key)) {
+        console.log(e.key)
         onLetterPress(e.key)
       }
 
